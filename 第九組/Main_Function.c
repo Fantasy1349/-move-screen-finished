@@ -11,10 +11,10 @@ void Doodle_jump(ROLE *Doodle,BASE *Base_G, int *Score){
         page_move(Doodle,Base_G,Score);
         Doodle->Y=Doodle->Y;
         }
-        else Doodle->Y-=3;
+        else Doodle->Y-=1;
     }
     else{
-        Doodle->Y+=2;
+        Doodle->Y+=1;
     }
 //    printf("\nbase=%lf\n",Doodle->base);
     if (Doodle->Y+DoodleH <= Doodle->base-jumphight &&

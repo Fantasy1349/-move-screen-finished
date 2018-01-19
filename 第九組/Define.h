@@ -32,7 +32,7 @@
 
 #define BaseG_Num 25
 
-#define jumphight 270
+#define jumphight 350
 
 
 #endif // DEFINE_H_INCLUDED
