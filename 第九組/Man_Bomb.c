@@ -95,7 +95,7 @@ int main()
         // Clear the complete target bitmap, but confined by the clipping rectangle.
 
     al_draw_bitmap(GameOver, 0, 0, 0);//show Game Over bitmap
-    al_rest(0.0001);
+    al_rest(0.01);
     al_flip_display(); // Wait for the beginning of a vertical retrace.
     al_rest(0.5);
 
