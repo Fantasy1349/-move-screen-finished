@@ -47,36 +47,17 @@ void page_move(ROLE *Doodle,BASE Base_G[BaseG_Num], int *Score){
 /*Input Variable : Structure Pointer Role and Base*/
 /*Output : void*/
     for(int i = 0 ; i < BaseG_Num ; i++){
+        Base_G[i].Y += 3;
+        Score[0] += 3;
 
-        if (Doodle->Y >= 270 && Doodle->Y <= 430){
-            Base_G[i].Y += 5;
-            Score[0] += 5;
-        }
-        else if (Doodle->Y >= 187 && Doodle->Y <= 270){
-            Base_G[i].Y += 7;
-            Score[0] += 7;
-        }
-        else if(Doodle->Y < 187){
-            Base_G[i].Y += 12;
-            Score[0] += 12;
-        }
-        else{
-            Base_G[i].Y += 3;
-            Score[0] += 3;
-        }
-        Base_G[i].X = Base_G[i].X;
         if(Base_G[i].Y > DISPLAY_HEIGHT){
             Base_G[i].Y -= DISPLAY_HEIGHT;
             Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
-//            for(i = 0; i < BaseG_Num-1; i++){
-//                while( (Base_G[i].X >= Base_G[i+1].X -120) &&(Base_G[i].X <= Base_G[i+1].X + 120) &&
-//                       (Base_G[i].Y >= Base_G[i+1].Y - 60) && (Base_G[i].Y <= Base_G[i+1].Y + 60)){
-//                        Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
-//                       }
-//            }
-//            while((Base_G[i].X >= Base_G[i-1].X -120) &&(Base_G[i].X <= Base_G[i-1].X + 120)){
-//                Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
-//            }
+
+            while((Base_G[i].X >= Base_G[i-1].X -150) &&(Base_G[i].X <= Base_G[i-1].X + 150)){
+                Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
+            }
+
             while((Doodle->X >= Base_G[i].X -30) && (Doodle->X <= Base_G[i].X +90)){
                 Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
             }

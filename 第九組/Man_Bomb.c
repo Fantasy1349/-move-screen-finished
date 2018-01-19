@@ -7,7 +7,8 @@ int main()
     ALLEGRO_BITMAP *BackGround = NULL;
     ALLEGRO_BITMAP *GameOver = NULL;
     ALLEGRO_BITMAP *doodle = NULL;
-    ALLEGRO_BITMAP *baseG = NULL;  //declare bitmap
+    ALLEGRO_BITMAP *baseG = NULL;
+    ALLEGRO_BITMAP *baseB = NULL; //declare bitmap
     ALLEGRO_TIMER *timer = NULL;
     ALLEGRO_EVENT_QUEUE* event_queue = NULL; // create event queue
     ALLEGRO_EVENT events;
@@ -16,12 +17,13 @@ int main()
     ALLEGRO_FONT *Font1 = NULL;
     ALLEGRO_FONT *Font2 = NULL;
 
-    int i;
+    int i,level=1;
     int Score[1]={0}, FinalScore = 0;
     bool run=1;
     float FPS = 120;
     ROLE Doodle;
     BASE Base_G[BaseG_Num];
+    BASE Base_B[BaseG_Num];
 
     /*-----------set up Allegro and the graphics mode-----------*/
     initialization();
@@ -33,6 +35,7 @@ int main()
     GameOver    = al_load_bitmap( "GameOver.png");
     doodle      = al_load_bitmap( "Doodle.png");
     baseG       = al_load_bitmap( "PlatG.png");
+    baseB       = al_load_bitmap( "PlatB.png");
     Font = al_load_ttf_font("ARCHRISTY.ttf", 23, 0);
     Font1 = al_load_ttf_font("ARCHRISTY.ttf", 35, 0);
     Font2 = al_load_ttf_font("ARCHRISTY.ttf", 80, 0);
@@ -40,7 +43,8 @@ int main()
     srand( time( NULL ) );
      //seed the random function
 
-    initilaze_coordinate(&Doodle, Base_G);
+    if (level == 1)     initilaze_coordinate(&Doodle, Base_G);
+    else if (level == 2)initilaze_coordinate(&Doodle, Base_B);
 
     event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_keyboard_event_source());    /* register keyboard to event queue */
@@ -65,12 +69,19 @@ int main()
                     case ALLEGRO_EVENT_KEY_UP:
                         STOP(events,&Doodle);
                     case ALLEGRO_EVENT_TIMER:
+                        if (level == 1)      {
                         Plat_jump(&Doodle,Base_G);
                         Doodle_jump(&Doodle,Base_G,&Score);
+                        }
+                        else if (level == 2) {
+                        Plat_jump(&Doodle,Base_B);
+                        Doodle_jump(&Doodle,Base_B,&Score);
+                        }
                         if(Doodle.Y > 930) run=0;
                         break;
                  }
            Doodle_Moving(&Doodle);
+           if(Score[0]>=10000) level = 2;
           }
        }
        FinalScore = Score[0] / 10;
