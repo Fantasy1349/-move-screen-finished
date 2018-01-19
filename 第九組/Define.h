@@ -30,8 +30,13 @@
 #define BaseW 60
 #define BaseSHIFT 15
 
-#define BaseG_Num 25
+#define Right  2
+#define Left   3
 
+#define BaseG_Num 25
+#define BaseB_Num 25
+
+#define Level_2_Score 1000
 #define jumphight 270
 
 

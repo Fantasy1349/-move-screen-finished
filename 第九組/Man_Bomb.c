@@ -6,6 +6,7 @@ int main()
     /*-----------------------Declared-----------------------*/
     ALLEGRO_BITMAP *BackGround = NULL;
     ALLEGRO_BITMAP *GameOver = NULL;
+    ALLEGRO_BITMAP *Level2 = NULL;
     ALLEGRO_BITMAP *doodle = NULL;
     ALLEGRO_BITMAP *baseG = NULL;
     ALLEGRO_BITMAP *baseB = NULL; //declare bitmap
@@ -17,8 +18,9 @@ int main()
     ALLEGRO_FONT *Font1 = NULL;
     ALLEGRO_FONT *Font2 = NULL;
 
-    int i,level=1;
+    int i,level = 1;
     int Score[1]={0}, FinalScore = 0;
+    int level2_stoptime=0;
     bool run=1;
     float FPS = 120;
     ROLE Doodle;
@@ -33,6 +35,7 @@ int main()
     /*------------------Load Bitmap------------------*/
     BackGround  = al_load_bitmap( "Background.png");
     GameOver    = al_load_bitmap( "GameOver.png");
+    Level2      = al_load_bitmap( "level2.jpg");
     doodle      = al_load_bitmap( "Doodle.png");
     baseG       = al_load_bitmap( "PlatG.png");
     baseB       = al_load_bitmap( "PlatB.png");
@@ -43,8 +46,9 @@ int main()
     srand( time( NULL ) );
      //seed the random function
 
-    if (level == 1)     initilaze_coordinate(&Doodle, Base_G);
-    else if (level == 2)initilaze_coordinate(&Doodle, Base_B);
+    initilaze_coordinate(&Doodle, Base_B);
+    initilaze_coordinate(&Doodle, Base_G);
+
 
     event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_keyboard_event_source());    /* register keyboard to event queue */
@@ -54,8 +58,6 @@ int main()
 
     while(run){
         al_draw_bitmap(BackGround, 0, 0, 0);
-//        main_menu(Font1, Font2);
-
         if (!al_is_event_queue_empty(event_queue)) {
             while (al_get_next_event(event_queue, &events)) {
                  switch (events.type) {
@@ -74,6 +76,10 @@ int main()
                         Doodle_jump(&Doodle,Base_G,&Score);
                         }
                         else if (level == 2) {
+
+                        if(level2_stoptime < 400) level2_stoptime++;
+                        else if(level2_stoptime>=400)  Plat_move(Base_B);
+                        //Countdown about three seconds then move plat
                         Plat_jump(&Doodle,Base_B);
                         Doodle_jump(&Doodle,Base_B,&Score);
                         }
@@ -81,17 +87,36 @@ int main()
                         break;
                  }
            Doodle_Moving(&Doodle);
-           if(Score[0]>=10000) level = 2;
           }
        }
        FinalScore = Score[0] / 10;
+
+       if(FinalScore>=Level_2_Score && FinalScore<=Level_2_Score + 15 ) {
+           if(level == 1){
+               al_draw_bitmap(Level2, 0, 0, 0);//show Game Over bitmap
+               al_rest(0.01);
+               al_flip_display(); // Wait for the beginning of a vertical retrace.
+               al_rest(1);
+               level = 2;
+               initilaze_level2(&Doodle, Base_B);
+               while(level < 2)   STOP(events,&Doodle);
+           }
+       }
+
 //       printf("\nScore=%d\n", FinalScore);
-       al_draw_textf( Font, al_map_rgb(0, 0, 0), 10, 10, ALLEGRO_ALIGN_LEFT, "Score = %d", FinalScore);
         //display bitmap
-        for(i = 0; i < BaseG_Num; i++){
-            al_draw_bitmap(baseG, Base_G[i].X,Base_G[i].Y, 0);
+        if(level == 1){
+            for(i = 0; i < BaseG_Num; i++){
+                al_draw_bitmap(baseG, Base_G[i].X,Base_G[i].Y, 0);
+            }
+        }
+        else if(level == 2){
+            for(i = 0; i < BaseG_Num; i++){
+                al_draw_bitmap(baseB, Base_B[i].X,Base_B[i].Y, 0);
+            }
         }
 
+        al_draw_textf( Font, al_map_rgb(0, 0, 0), 10, 10, ALLEGRO_ALIGN_LEFT, "Score = %d", FinalScore);
         al_draw_scaled_bitmap(doodle, 0, 0,
                               al_get_bitmap_width(doodle), al_get_bitmap_height(doodle),
                               Doodle.X, Doodle.Y,
@@ -102,6 +127,7 @@ int main()
         al_rest(0.01);
 
         al_flip_display(); // Wait for the beginning of a vertical retrace.
+//        printf("level=%d\n",level);
     }
         // Clear the complete target bitmap, but confined by the clipping rectangle.
 
