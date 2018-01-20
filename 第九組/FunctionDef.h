@@ -23,7 +23,7 @@ int direction;
 /*----------------Doodle-----------------*/
 void Doodle_Moving(ROLE *Doodle);
 void STOP(ALLEGRO_EVENT events,ROLE *Doodle);
-void Change_State(ALLEGRO_EVENT events,ROLE *Doodle);
+void Change_State(ALLEGRO_EVENT events,ROLE *Doodle,int *picture_dir);
 void Doodle_jump(ROLE *Doodle,BASE *Base_G, int *Score,int Plat_Num);
 void Plat_jump(ROLE *Doodle,BASE *Base_G,int Plat_Num,int level);
 void Plat_move(BASE Base_B[BaseG_Num]);

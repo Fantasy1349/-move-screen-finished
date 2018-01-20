@@ -54,7 +54,7 @@ void Plat_move(BASE Base_B[BaseB_Num]){
 /*Output : void*/
     for(int i=0;i<BaseB_Num;i++){
         if(Base_B[i].X+BaseW-BaseSHIFT == DISPLAY_WIDTH) Base_B[i].direction = Left;
-        else if(Base_B[i].X-BaseSHIFT == 0) Base_B[i].direction = Right;
+        else if(Base_B[i].X == 0) Base_B[i].direction = Right;
 
         if(Base_B[i].direction == Right) Base_B[i].X++;
         else if(Base_B[i].direction == Left) Base_B[i].X--;

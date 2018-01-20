@@ -22,7 +22,7 @@ int main()
 
     int i,level = 1;
     int Score[1]={0}, FinalScore = 0;
-    int level2_stoptime=0,level3_stoptime=0;
+    int picture_dir = Right,level2_stoptime = 0,level3_stoptime = 0;
     bool run=1;
     float FPS = 120;
     ROLE Doodle;
@@ -72,7 +72,7 @@ int main()
                         break;
                     case ALLEGRO_EVENT_KEY_DOWN:
                         if(events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)  run = 0;
-                        Change_State(events,&Doodle);
+                        Change_State(events,&Doodle,&picture_dir);
                         break;
                     case ALLEGRO_EVENT_KEY_UP:
                         STOP(events,&Doodle);
@@ -152,6 +152,10 @@ int main()
         }
 
         al_draw_textf( Font, al_map_rgb(0, 0, 0), 10, 10, ALLEGRO_ALIGN_LEFT, "Score = %d", FinalScore);
+        if(picture_dir == Left)
+        al_draw_scaled_bitmap(doodle, 0, 0,al_get_bitmap_width(doodle), al_get_bitmap_height(doodle),
+                              Doodle.X, Doodle.Y,DoodleW, DoodleH,1);
+        else if(picture_dir == Right)
         al_draw_scaled_bitmap(doodle, 0, 0,al_get_bitmap_width(doodle), al_get_bitmap_height(doodle),
                               Doodle.X, Doodle.Y,DoodleW, DoodleH,0);
 
