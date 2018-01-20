@@ -152,6 +152,10 @@ int main()
         }
 
         al_draw_textf( Font, al_map_rgb(0, 0, 0), 10, 10, ALLEGRO_ALIGN_LEFT, "Score = %d", FinalScore);
+        if(Doodle.state_L == 1)
+        al_draw_scaled_bitmap(doodle, 0, 0,al_get_bitmap_width(doodle), al_get_bitmap_height(doodle),
+                              Doodle.X, Doodle.Y,DoodleW, DoodleH,1);
+        else if((Doodle.state_R == 1))
         al_draw_scaled_bitmap(doodle, 0, 0,al_get_bitmap_width(doodle), al_get_bitmap_height(doodle),
                               Doodle.X, Doodle.Y,DoodleW, DoodleH,0);
 
