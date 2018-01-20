@@ -39,6 +39,7 @@ void Plat_jump(ROLE *Doodle,BASE Base_G[],int Plat_Num,int level){
                 //level 1, level 2
                 else if(level == 3 && Base_G[i].HP != 0) {
                 Doodle->base = Base_G[i].Y;
+                Doodle->direction = 0;
                 Base_G[i].HP = 0;
                 }
                 //level 3
