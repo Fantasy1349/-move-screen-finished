@@ -37,8 +37,8 @@
 #define BaseB_Num 20
 #define BaseW_Num 40
 
-#define Level_2_Score 1000
-#define Level_3_Score 2000
+#define Level_2_Score 5000
+#define Level_3_Score 10000
 #define jumphight 270
 
 
