@@ -40,5 +40,6 @@
 #define Level_3_Score 2000
 #define jumphight 270
 
+#define test 123
 
 #endif // DEFINE_H_INCLUDED
