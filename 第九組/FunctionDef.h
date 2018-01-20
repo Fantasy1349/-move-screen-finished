@@ -18,13 +18,19 @@ typedef struct Bases{
 int X;
 int Y;
 } BASE;
+
+typedef struct Props{
+int X;
+int Y;
+int open;
+}PROP;
 /*----------------Doodle-----------------*/
 void Doodle_Moving(ROLE *Doodle);
 void STOP(ALLEGRO_EVENT events,ROLE *Doodle);
 void Change_State(ALLEGRO_EVENT events,ROLE *Doodle);
-void Doodle_jump(ROLE *Doodle,BASE *Base_G, int *Score);
+void Doodle_jump(ROLE *Doodle,BASE *Base_G, int *Score,PROP *spring);
 void Plat_jump(ROLE *Doodle,BASE *Base_G);
-void page_move(ROLE *Doodle,BASE Base_G[BaseG_Num], int *Score);
+void page_move(ROLE *Doodle,BASE Base_G[BaseG_Num], int *Score,PROP *spring);
 void initilaze_coordinate(ROLE *Doodle,BASE Base_G[BaseG_Num]);
 void initialization();
 void main_menu(ALLEGRO_FONT *Font, ALLEGRO_FONT *Font1);

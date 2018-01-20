@@ -2,13 +2,16 @@
 #include "Define.h"
 /*----------------Doodle-----------------*/
 
-void Doodle_jump(ROLE *Doodle,BASE *Base_G, int *Score){
+void Doodle_jump(ROLE *Doodle,BASE *Base_G, int *Score,PROP *spring){
 /*Control the character jumping mode, up or down*/
 /*Input Variable : Structure Pointer Role and Pointer Base*/
 /*Output : void*/
+
+    spring->open=1;
+    spring->Y=-100;
     if(Doodle->direction == 0){
         if(Doodle->Y <=DISPLAY_HEIGHT/3)  {
-        page_move(Doodle,Base_G,Score);
+        page_move(Doodle,Base_G,Score,spring);
         Doodle->Y=Doodle->Y;
         }
         else Doodle->Y-=3;
@@ -31,7 +34,6 @@ void Plat_jump(ROLE *Doodle,BASE Base_G[BaseG_Num]){
 /*When the character step the plat, it will jump up*/
 /*Input Variable : Structure Pointer Role and Base*/
 /*Output : void*/
-    int y[BaseG_Num], j;
     for(int i = 0;i <BaseG_Num;i++){
         if(Doodle->Y+DoodleH >= Base_G[i].Y && Doodle->Y+DoodleH <= Base_G[i].Y+BaseH&& Doodle->direction==1){
             if(Doodle->X+DoodleW >= Base_G[i].X+BaseSHIFT && Doodle->X <= Base_G[i].X+BaseW-BaseSHIFT){
@@ -42,44 +44,47 @@ void Plat_jump(ROLE *Doodle,BASE Base_G[BaseG_Num]){
     }
 }
 
-void page_move(ROLE *Doodle,BASE Base_G[BaseG_Num], int *Score){
+void page_move(ROLE *Doodle,BASE Base_G[BaseG_Num], int *Score,PROP *spring){
 /*When the character jump up, the page will also move up*/
 /*Input Variable : Structure Pointer Role and Base*/
 /*Output : void*/
+
+
+
     for(int i = 0 ; i < BaseG_Num ; i++){
 
         if (Doodle->Y >= 270 && Doodle->Y <= 430){
             Base_G[i].Y += 5;
+            spring->Y +=5;
             Score[0] += 5;
         }
         else if (Doodle->Y >= 187 && Doodle->Y <= 270){
             Base_G[i].Y += 7;
+            spring->Y +=7;
             Score[0] += 7;
         }
         else if(Doodle->Y < 187){
             Base_G[i].Y += 12;
+            spring->Y +=12;
             Score[0] += 12;
         }
         else{
             Base_G[i].Y += 3;
+            spring->Y +=3;
             Score[0] += 3;
         }
         Base_G[i].X = Base_G[i].X;
         if(Base_G[i].Y > DISPLAY_HEIGHT){
             Base_G[i].Y -= DISPLAY_HEIGHT;
             Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
-//            for(i = 0; i < BaseG_Num-1; i++){
-//                while( (Base_G[i].X >= Base_G[i+1].X -120) &&(Base_G[i].X <= Base_G[i+1].X + 120) &&
-//                       (Base_G[i].Y >= Base_G[i+1].Y - 60) && (Base_G[i].Y <= Base_G[i+1].Y + 60)){
-//                        Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
-//                       }
-//            }
-//            while((Base_G[i].X >= Base_G[i-1].X -120) &&(Base_G[i].X <= Base_G[i-1].X + 120)){
-//                Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
-//            }
             while((Doodle->X >= Base_G[i].X -30) && (Doodle->X <= Base_G[i].X +90)){
                 Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
             }
+        if(spring->open==1){
+            spring->X = Base_G[i].X+29;
+            spring->Y = Base_G[i].Y-19;
+            spring->open = 0;
+        }
         }
     }
 }

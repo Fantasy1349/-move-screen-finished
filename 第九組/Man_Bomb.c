@@ -7,6 +7,7 @@ int main()
     ALLEGRO_BITMAP *BackGround = NULL;
     ALLEGRO_BITMAP *GameOver = NULL;
     ALLEGRO_BITMAP *doodle = NULL;
+    ALLEGRO_BITMAP *Spring = NULL;
     ALLEGRO_BITMAP *baseG = NULL;  //declare bitmap
     ALLEGRO_TIMER *timer = NULL;
     ALLEGRO_EVENT_QUEUE* event_queue = NULL; // create event queue
@@ -16,12 +17,13 @@ int main()
     ALLEGRO_FONT *Font1 = NULL;
     ALLEGRO_FONT *Font2 = NULL;
 
-    int i;
+    int i,j;
     int Score[1]={0}, FinalScore = 0;
     bool run=1;
     float FPS = 120;
     ROLE Doodle;
     BASE Base_G[BaseG_Num];
+    PROP spring;
 
     /*-----------set up Allegro and the graphics mode-----------*/
     initialization();
@@ -33,6 +35,7 @@ int main()
     GameOver    = al_load_bitmap( "GameOver.png");
     doodle      = al_load_bitmap( "Doodle.png");
     baseG       = al_load_bitmap( "PlatG.png");
+    Spring      = al_load_bitmap("spring.png");
     Font = al_load_ttf_font("ARCHRISTY.ttf", 23, 0);
     Font1 = al_load_ttf_font("ARCHRISTY.ttf", 35, 0);
     Font2 = al_load_ttf_font("ARCHRISTY.ttf", 80, 0);
@@ -65,8 +68,10 @@ int main()
                     case ALLEGRO_EVENT_KEY_UP:
                         STOP(events,&Doodle);
                     case ALLEGRO_EVENT_TIMER:
+                        j++;
+                        printf("%d\n",j);
                         Plat_jump(&Doodle,Base_G);
-                        Doodle_jump(&Doodle,Base_G,&Score);
+                        Doodle_jump(&Doodle,Base_G,&Score,&spring);
                         if(Doodle.Y > 930) run=0;
                         break;
                  }
@@ -80,6 +85,8 @@ int main()
         for(i = 0; i < BaseG_Num; i++){
             al_draw_bitmap(baseG, Base_G[i].X,Base_G[i].Y, 0);
         }
+
+        al_draw_bitmap(Spring, spring.X,spring.Y, 0);
 
         al_draw_scaled_bitmap(doodle, 0, 0,
                               al_get_bitmap_width(doodle), al_get_bitmap_height(doodle),
