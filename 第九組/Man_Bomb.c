@@ -22,13 +22,13 @@ int main()
 
     int i,level = 1;
     int Score[1]={0}, FinalScore = 0;
-    int level2_stoptime=0;
+    int level2_stoptime=0,level3_stoptime=0;
     bool run=1;
     float FPS = 120;
     ROLE Doodle;
     BASE Base_G[BaseG_Num];
-    BASE Base_B[BaseG_Num];
-    BASE Base_W[BaseG_Num];
+    BASE Base_B[BaseB_Num];
+    BASE Base_W[BaseW_Num];
 
     /*-----------set up Allegro and the graphics mode-----------*/
     initialization();
@@ -51,9 +51,9 @@ int main()
     srand( time( NULL ) );
      //seed the random function
 
-    initilaze_coordinate(&Doodle, Base_W);
-    initilaze_coordinate(&Doodle, Base_B);
-    initilaze_coordinate(&Doodle, Base_G);
+    initilaze_coordinate(&Doodle, Base_W,BaseW_Num);
+    initilaze_coordinate(&Doodle, Base_B,BaseB_Num);
+    initilaze_coordinate(&Doodle, Base_G,BaseG_Num);
 
 
     event_queue = al_create_event_queue();
@@ -78,20 +78,34 @@ int main()
                         STOP(events,&Doodle);
                     case ALLEGRO_EVENT_TIMER:
                         if (level == 1)      {
-                            Plat_jump(&Doodle,Base_G);
-                            Doodle_jump(&Doodle,Base_G,&Score);
+                            Plat_jump(&Doodle,Base_G,BaseG_Num);
+                            Doodle_jump(&Doodle,Base_G,&Score,BaseG_Num);
                         }
                         else if (level == 2) {
 
-                        if(level2_stoptime < 400) level2_stoptime++;
-                        else if(level2_stoptime>=400)  Plat_move(Base_B);
-                            //Countdown about three seconds then move plat
-                            Plat_jump(&Doodle,Base_B);
-                            Doodle_jump(&Doodle,Base_B,&Score);
+                        if(level2_stoptime < 150) {
+                            initilaze_level(&Doodle, Base_B,BaseB_Num);
+                            level2_stoptime++;
+                        }
+                        else if(level2_stoptime >=150)
+                        {   Plat_move(Base_B);
+                            //Countdown about 1.5 seconds then move plat
+                        }
+                            Plat_jump(&Doodle,Base_B,BaseB_Num);
+                            Doodle_jump(&Doodle,Base_B,&Score,BaseB_Num);
                         }
                         else{
-                            Plat_jump(&Doodle,Base_W);
-                            Doodle_jump(&Doodle,Base_W,&Score);
+
+                            if(level3_stoptime < 150 ) {
+                                initilaze_level(&Doodle,Base_W,BaseW_Num);
+                                level3_stoptime++;
+                        }
+                        else if(level3_stoptime >= 150){
+                                //del_platW
+                            //Countdown about 1.5 seconds then playing level 3
+                        }
+                            Plat_jump(&Doodle,Base_W,BaseW_Num);
+                            Doodle_jump(&Doodle,Base_W,&Score,BaseW_Num);
                         }
                         if(Doodle.Y > 930) run=0;
                         break;
@@ -101,33 +115,21 @@ int main()
        }
        FinalScore = Score[0] / 10;
 
-       if(FinalScore>=Level_2_Score && FinalScore<=Level_2_Score + 15 ) {
-           if(level == 1){
+       if(FinalScore>=Level_2_Score && FinalScore<=Level_2_Score + 30 && level == 1) {
                al_draw_bitmap(Level2, 0, 0, 0);//show Game Over bitmap
                al_rest(0.01);
                al_flip_display(); // Wait for the beginning of a vertical retrace.
-               al_rest(1);
+               al_rest(0.5);
                level = 2;
-               while(level < 2)   {
-                Doodle.X=DISPLAY_WIDTH/2;
-                Doodle.Y=DISPLAY_HEIGHT-DoodleH-50;
-               }
-               initilaze_level2(&Doodle, Base_B);
-           }
+//               initilaze_level(&Doodle, Base_B,BaseB_Num);
        }
-       if(FinalScore>=Level_3_Score && FinalScore<=Level_3_Score + 15 ) {
-           if(level == 2){
+       if(FinalScore>=Level_3_Score && FinalScore<=Level_3_Score + 30 && level == 2) {
                al_draw_bitmap(Level3, 0, 0, 0);//show Game Over bitmap
                al_rest(0.01);
                al_flip_display(); // Wait for the beginning of a vertical retrace.
-               al_rest(1);
+               al_rest(0.5);
                level = 3;
-               while(level < 3)   {
-                Doodle.X=DISPLAY_WIDTH/2;
-                Doodle.Y=DISPLAY_HEIGHT-DoodleH-50;
-               }
-               initilaze_level2(&Doodle, Base_W);
-           }
+//               initilaze_level,(&Doodle, Base_W,BaseW_Num);
        }
 
 //       printf("\nScore=%d\n", FinalScore);
@@ -138,12 +140,12 @@ int main()
             }
         }
         else if(level == 2){
-            for(i = 0; i < BaseG_Num; i++){
+            for(i = 0; i < BaseB_Num; i++){
                 al_draw_bitmap(baseB, Base_B[i].X,Base_B[i].Y, 0);
             }
         }
         else if(level == 3){
-            for(i = 0; i < BaseG_Num; i++){
+            for(i = 0; i < BaseW_Num; i++){
                 al_draw_bitmap(baseW, Base_W[i].X,Base_W[i].Y, 0);
             }
         }

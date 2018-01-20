@@ -33,8 +33,9 @@
 #define Right  2
 #define Left   3
 
-#define BaseG_Num 25
-#define BaseB_Num 25
+#define BaseG_Num 28
+#define BaseB_Num 20
+#define BaseW_Num 30
 
 #define Level_2_Score 1000
 #define Level_3_Score 2000
