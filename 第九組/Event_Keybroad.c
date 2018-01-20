@@ -1,9 +1,15 @@
 #include "FunctionDef.h"
 #include "Define.h"
 
-void Change_State(ALLEGRO_EVENT events,ROLE *Doodle){
-    if (events.keyboard.keycode == ALLEGRO_KEY_LEFT)  Doodle->state_L = 1;
-    if (events.keyboard.keycode == ALLEGRO_KEY_RIGHT) Doodle->state_R = 1;
+void Change_State(ALLEGRO_EVENT events,ROLE *Doodle,int *picture_dir){
+    if (events.keyboard.keycode == ALLEGRO_KEY_LEFT)  {
+        Doodle->state_L = 1;
+        *picture_dir = Left;
+    }
+    if (events.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
+        Doodle->state_R = 1;
+        *picture_dir = Right;
+    }
 }
 
 void STOP(ALLEGRO_EVENT events,ROLE *Doodle){
