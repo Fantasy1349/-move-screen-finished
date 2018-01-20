@@ -9,7 +9,7 @@ void Doodle_jump(ROLE *Doodle,BASE *Base_G, int *Score,int Plat_Num){
     if(Doodle->direction == 0){
         if(Doodle->Y <=DISPLAY_HEIGHT/3)  {
         page_move(Doodle,Base_G,Score,Plat_Num);
-        Doodle->Y=Doodle->Y;
+//        Doodle->Y=Doodle->Y;
         }
         else Doodle->Y-=3;
     }
@@ -24,17 +24,24 @@ void Doodle_jump(ROLE *Doodle,BASE *Base_G, int *Score,int Plat_Num){
         Doodle->Y+DoodleH <= Doodle->base+BaseH)  Doodle->direction=0;//jump up
 
     if (Doodle->Y+DoodleH >= DISPLAY_HEIGHT)      Doodle->Y = DISPLAY_HEIGHT+100;
-    if (Doodle->Y+DoodleH <= -10)                   Doodle->Y = 1;
+    if (Doodle->Y+DoodleH <= -10)                 Doodle->Y = 1;
 }
 
-void Plat_jump(ROLE *Doodle,BASE Base_G[],int Plat_Num){
+void Plat_jump(ROLE *Doodle,BASE Base_G[],int Plat_Num,int level){
 /*When the character step the plat, it will jump up*/
 /*Input Variable : Structure Pointer Role and Base*/
 /*Output : void*/
     for(int i = 0;i <Plat_Num;i++){
         if(Doodle->Y+DoodleH >= Base_G[i].Y && Doodle->Y+DoodleH <= Base_G[i].Y+BaseH&& Doodle->direction==1){
             if(Doodle->X+DoodleW >= Base_G[i].X+BaseSHIFT && Doodle->X <= Base_G[i].X+BaseW-BaseSHIFT){
+
+                if(level != 3) Doodle->base = Base_G[i].Y;
+                //level 1, level 2
+                else if(level == 3 && Base_G[i].HP != 0) {
                 Doodle->base = Base_G[i].Y;
+                Base_G[i].HP = 0;
+                }
+                //level 3
             }
         }
         else Doodle->base += 0.1;
@@ -62,7 +69,8 @@ void page_move(ROLE *Doodle,BASE Base_G[BaseG_Num], int *Score,int Plat_Num){
 
         if(Base_G[i].Y > DISPLAY_HEIGHT){
             Base_G[i].Y -= DISPLAY_HEIGHT;
-            Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
+            Base_G[i].X  = rand()%(DISPLAY_WIDTH-BaseW +1);
+            Base_G[i].HP = 1;
 
             while((Base_G[i].X >= Base_G[i-1].X -150) &&(Base_G[i].X <= Base_G[i-1].X + 150)){
                 Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
@@ -80,8 +88,7 @@ void initilaze_coordinate(ROLE *Doodle,BASE Base_G[BaseG_Num],int Plat_Num){
 /*Input Variable : Structure Pointer Role and Base*/
 /*Output : void*/
     int i, j;
-//    Base_G[0].X = rand()%(DISPLAY_WIDTH-BaseW +1);
-//    Base_G[0].Y = rand()%(DISPLAY_HEIGHT-BaseH +1);
+
     for(i = 0; i < 10; i++){
         Base_G[i].X = rand()%(DISPLAY_WIDTH-BaseW +1);
         Base_G[i].Y = i*100;
@@ -116,9 +123,11 @@ void initilaze_level(ROLE *Doodle,BASE Base_B[],int Plat_Num){
     int i;
     for(i=0;i<Plat_Num/2;i++){
         Base_B[i].direction = Right;
+        Base_B[i].HP = 1;
     }
     for(;i<Plat_Num;i++){
         Base_B[i].direction = Left;
+        Base_B[i].HP = 1;
     }
     Doodle->X = DISPLAY_WIDTH/2; // give the Man its initial x-coordinate
     Doodle->Y = DISPLAY_HEIGHT-DoodleH-BaseH; // give the Man its initial y-coordinate
@@ -128,6 +137,3 @@ void initilaze_level(ROLE *Doodle,BASE Base_B[],int Plat_Num){
     Doodle->direction=0;
 }
 
-//void del_platW(ROLE *Doodle,BASE Base_W[BaseG_Num]){
-//
-//}

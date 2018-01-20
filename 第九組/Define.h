@@ -35,7 +35,7 @@
 
 #define BaseG_Num 28
 #define BaseB_Num 20
-#define BaseW_Num 30
+#define BaseW_Num 40
 
 #define Level_2_Score 1000
 #define Level_3_Score 2000
