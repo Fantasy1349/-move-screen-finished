@@ -1,36 +1,36 @@
-#define MYHEADER_H_INCLUDED
+#ifndef MYHEADER_H_INCLUDED
 #define MYHEADER_H_INCLUDED
 #include "Define.h"
-#include "StructDef.h"
 
-/* initialization.c*/
-void initialization(GAMEDATA *gamedata, ICON *icon);
+typedef struct Role{
+int X;
+int Y;
+int direction;//1->jump down  0->jump up
+double base;
 
-//void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE Base_G[], BASE Base_B[], BASE Base_W[]);
+int state_U;
+int state_D;
+int state_R;
+int state_L;
+} ROLE;
 
-void Doodle_jump(GAMEDATA *gamedata, int Plat_Num, BASE *Base, ROLE *Doodle);
-void Plat_jump(int Plat_Num, BASE Base[], ROLE *Doodle, GAMEDATA *gamedata);
-void Plat_move(BASE Base[]);
-void page_move(GAMEDATA *gamedata, int Plat_Num,  BASE Base[], ROLE *Doodle);
-void initilaze_coordinate(int Plat_Num,  BASE Base[], ROLE *Doodle);
-void initilaze_level(ROLE *Doodle, BASE Base[], int Plat_Num);
-void int_stoptime(GAMEDATA *gamedata);
-
-void Change_State(GAMEDATA *gamedata, ROLE *Doodle);
-void STOP(GAMEDATA *gamedata, ROLE *Doodle);
+typedef struct Bases{
+int X;
+int Y;
+int HP;
+int direction;
+} BASE;
+/*----------------Doodle-----------------*/
 void Doodle_Moving(ROLE *Doodle);
-
-
-void menu(GAMEDATA *gamedata, ICON *icon);
-void Rule(GAMEDATA *gamedata);
-
-void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE *Base_B, BASE *Base_W);
-void Game_Menu(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE *Base_B, BASE *Base_W);
-
-
-void Enter_Name(GAMEDATA *gamedata);
-void Rank_Result(GAMEDATA *gamedata);
-void Leaderboards(GAMEDATA *gamedata, ICON *icon);
-
-
-
+void STOP(ALLEGRO_EVENT events,ROLE *Doodle);
+void Change_State(ALLEGRO_EVENT events,ROLE *Doodle,int *picture_dir);
+void Doodle_jump(ROLE *Doodle,BASE *Base_G, int *Score,int Plat_Num);
+void Plat_jump(ROLE *Doodle,BASE *Base_G,int Plat_Num,int level);
+void Plat_move(BASE Base_B[BaseG_Num]);
+void page_move(ROLE *Doodle,BASE Base_G[BaseG_Num], int *Score,int Plat_Num);
+void initilaze_coordinate(ROLE *Doodle,BASE Base_G[BaseG_Num],int Plat_Num);
+void initilaze_level(ROLE *Doodle,BASE Base_B[],int Plat_Num);
+void initialization();
+void main_menu(ALLEGRO_FONT *Font, ALLEGRO_FONT *Font1);
+/*---------------------------------------*/
+#endif // MYHEADER_H_INCLUDED

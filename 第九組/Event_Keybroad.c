@@ -1,22 +1,20 @@
 #include "FunctionDef.h"
 #include "Define.h"
-#include "StructDef.h"
 
-
-void Change_State(GAMEDATA *gamedata, ROLE *Doodle){
-    if (gamedata->events.keyboard.keycode == ALLEGRO_KEY_LEFT)  {
+void Change_State(ALLEGRO_EVENT events,ROLE *Doodle,int *picture_dir){
+    if (events.keyboard.keycode == ALLEGRO_KEY_LEFT)  {
         Doodle->state_L = 1;
-        gamedata->picture_dir = Left;
+        *picture_dir = Left;
     }
-    if (gamedata->events.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
+    if (events.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
         Doodle->state_R = 1;
-        gamedata->picture_dir = Right;
+        *picture_dir = Right;
     }
 }
 
-void STOP(GAMEDATA *gamedata, ROLE *Doodle){
-    if (gamedata->events.keyboard.keycode == ALLEGRO_KEY_LEFT)  Doodle->state_L = 0;
-    if (gamedata->events.keyboard.keycode == ALLEGRO_KEY_RIGHT) Doodle->state_R = 0;
+void STOP(ALLEGRO_EVENT events,ROLE *Doodle){
+    if (events.keyboard.keycode == ALLEGRO_KEY_LEFT)  Doodle->state_L = 0;
+    if (events.keyboard.keycode == ALLEGRO_KEY_RIGHT) Doodle->state_R = 0;
 }
 
 void Doodle_Moving(ROLE *Doodle){
