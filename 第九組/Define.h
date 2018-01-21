@@ -30,9 +30,17 @@
 #define BaseW 60
 #define BaseSHIFT 15
 
-#define BaseG_Num 25
+#define Right  2
+#define Left   3
 
+#define BaseG_Num 28
+#define BaseB_Num 20
+#define BaseW_Num 40
+
+#define Level_2_Score 60000
+#define Level_3_Score 70000
 #define jumphight 270
 
+#define Prop_Num 6
 
 #endif // DEFINE_H_INCLUDED
