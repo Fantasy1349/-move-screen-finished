@@ -67,11 +67,14 @@
 			<Add directory="../Allegro_Lib/lib" />
 		</Linker>
 		<Unit filename="Define.h" />
+		<Unit filename="Destroy.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Event_Keybroad.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="FunctionDef.h" />
-		<Unit filename="Main_Function.c">
+		<Unit filename="GameStart.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Main_Menu.c">
@@ -80,7 +83,14 @@
 		<Unit filename="Man_Bomb.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Operation_Function.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Player.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="README.h" />
+		<Unit filename="StructDef.h" />
 		<Unit filename="initialization.c">
 			<Option compilerVar="CC" />
 		</Unit>
