@@ -6,6 +6,7 @@ int main()
     /*-----------------------Declared-----------------------*/
     ALLEGRO_BITMAP *BackGround = NULL;
     ALLEGRO_BITMAP *GameOver = NULL;
+    ALLEGRO_BITMAP *GameStart = NULL;
     ALLEGRO_BITMAP *Level2 = NULL;
     ALLEGRO_BITMAP *Level3 = NULL;
     ALLEGRO_BITMAP *doodle = NULL;
@@ -20,15 +21,16 @@ int main()
     ALLEGRO_FONT *Font1 = NULL;
     ALLEGRO_FONT *Font2 = NULL;
 
-    int i,level = 1;
+    int i,level = 0;
+    int select = 1;
     int Score[1]={0}, FinalScore = 0;
-    int picture_dir = Right,level2_stoptime = 0,level3_stoptime = 0;
+    int level2_stoptime=0;
     bool run=1;
     float FPS = 120;
     ROLE Doodle;
     BASE Base_G[BaseG_Num];
-    BASE Base_B[BaseB_Num];
-    BASE Base_W[BaseW_Num];
+    BASE Base_B[BaseG_Num];
+    BASE Base_W[BaseG_Num];
 
     /*-----------set up Allegro and the graphics mode-----------*/
     initialization();
@@ -38,6 +40,7 @@ int main()
     /*------------------Load Bitmap------------------*/
     BackGround  = al_load_bitmap( "Background.png");
     GameOver    = al_load_bitmap( "GameOver.png");
+    GameStart   = al_load_bitmap( "GameStart.jpg");
     Level2      = al_load_bitmap( "level2.jpg");
     Level3      = al_load_bitmap( "level3.jpg");
     doodle      = al_load_bitmap( "Doodle.png");
@@ -51,9 +54,9 @@ int main()
     srand( time( NULL ) );
      //seed the random function
 
-    initilaze_coordinate(&Doodle, Base_W,BaseW_Num);
-    initilaze_coordinate(&Doodle, Base_B,BaseB_Num);
-    initilaze_coordinate(&Doodle, Base_G,BaseG_Num);
+    initilaze_coordinate(&Doodle, Base_W);
+    initilaze_coordinate(&Doodle, Base_B);
+    initilaze_coordinate(&Doodle, Base_G);
 
 
     event_queue = al_create_event_queue();
@@ -72,65 +75,93 @@ int main()
                         break;
                     case ALLEGRO_EVENT_KEY_DOWN:
                         if(events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)  run = 0;
-                        Change_State(events,&Doodle,&picture_dir);
+                        Change_State(events,&Doodle);
                         break;
                     case ALLEGRO_EVENT_KEY_UP:
                         STOP(events,&Doodle);
                     case ALLEGRO_EVENT_TIMER:
+                        if(level == 0){
+                            al_clear_to_color(al_map_rgb(0, 0, 0));
+                            al_draw_bitmap(BackGround, 0, 0, 0);
+                            main_menu(Font1, Font2);
+                            select = move_choice(events);
+                            switch(select){
+                                case 1:
+                                    al_draw_rectangle(DISPLAY_WIDTH/2 -15, DISPLAY_HEIGHT/4 -15, DISPLAY_WIDTH/2 +170, DISPLAY_HEIGHT/4 +110, al_map_rgb(255, 0, 0), 2.5);
+                                    break;
+                                case 2:
+                                    al_draw_rectangle(DISPLAY_WIDTH/2 -190, DISPLAY_HEIGHT/2.5 +30, DISPLAY_WIDTH/2 +15, DISPLAY_HEIGHT/2.5 +80, al_map_rgb(255, 0, 0), 2.5);
+                                    break;
+                                case 3:
+                                    al_draw_rectangle(DISPLAY_WIDTH/2 -40, DISPLAY_HEIGHT/2 +50, DISPLAY_WIDTH/2 +60, DISPLAY_HEIGHT/2 +98, al_map_rgb(255, 0, 0), 2.5);
+                                    break;
+                            }
+                            switch (events.type){
+                                case ALLEGRO_EVENT_KEY_DOWN:
+                                    if(events.keyboard.keycode == ALLEGRO_KEY_ENTER){
+                                        switch(select){
+                                            case 1:
+                                                al_draw_bitmap(GameStart, 0, 0, 0);//show Game Over bitmap
+                                                al_rest(0.01);
+                                                al_flip_display(); // Wait for the beginning of a vertical retrace.
+                                                al_rest(1);
+                                                level = 1;
+                                        }
+                                    }
+                            }
+                        }
                         if (level == 1)      {
-                            Plat_jump(&Doodle,Base_G,BaseG_Num,level);
-                            Doodle_jump(&Doodle,Base_G,&Score,BaseG_Num);
+                            Plat_jump(&Doodle,Base_G);
+                            Doodle_jump(&Doodle,Base_G,&Score);
                         }
-//--------------------------------------------------level 2-----------------------------------------------------
                         else if (level == 2) {
-
-                        if(level2_stoptime < 150) {
-                            initilaze_level(&Doodle, Base_B,BaseB_Num);
-                            level2_stoptime++;
+                            if(level2_stoptime < 400) level2_stoptime++;
+                            else if(level2_stoptime>=400)  Plat_move(Base_B);
+                                //Countdown about three seconds then move plat
+                                Plat_jump(&Doodle,Base_B);
+                                Doodle_jump(&Doodle,Base_B,&Score);
                         }
-                        else if(level2_stoptime >=150)
-                        {   Plat_move(Base_B);
-                            Plat_jump(&Doodle,Base_B,BaseB_Num,level);
-                            Doodle_jump(&Doodle,Base_B,&Score,BaseB_Num);
-                            //Countdown about 1.5 seconds then move plat
-                        }
-
-                        }
-//--------------------------------------------------level 3-----------------------------------------------------
                         else{
-
-                            if(level3_stoptime < 150 ) {
-                                initilaze_level(&Doodle,Base_W,BaseW_Num);
-                                level3_stoptime++;
-                        }
-                        else if(level3_stoptime >= 150){
-                            Plat_jump(&Doodle,Base_W,BaseW_Num,level);
-                            Doodle_jump(&Doodle,Base_W,&Score,BaseW_Num);
-                            //Countdown about 1.5 seconds then playing level 3
-                        }
-
+                            Plat_jump(&Doodle,Base_W);
+                            Doodle_jump(&Doodle,Base_W,&Score);
                         }
                         if(Doodle.Y > 930) run=0;
                         break;
                  }
            Doodle_Moving(&Doodle);
           }
-       }
+        }
+
+
        FinalScore = Score[0] / 10;
 
-       if(FinalScore>=Level_2_Score && FinalScore<=Level_2_Score + 30 && level == 1) {
+       if(FinalScore>=Level_2_Score && FinalScore<=Level_2_Score + 15 ) {
+           if(level == 1){
                al_draw_bitmap(Level2, 0, 0, 0);//show Game Over bitmap
                al_rest(0.01);
                al_flip_display(); // Wait for the beginning of a vertical retrace.
-               al_rest(0.5);
+               al_rest(1);
                level = 2;
+               while(level < 2)   {
+                Doodle.X=DISPLAY_WIDTH/2;
+                Doodle.Y=DISPLAY_HEIGHT-DoodleH-50;
+               }
+               initilaze_level2(&Doodle, Base_B);
+           }
        }
-       if(FinalScore>=Level_3_Score && FinalScore<=Level_3_Score + 30 && level == 2) {
+       if(FinalScore>=Level_3_Score && FinalScore<=Level_3_Score + 15 ) {
+           if(level == 2){
                al_draw_bitmap(Level3, 0, 0, 0);//show Game Over bitmap
                al_rest(0.01);
                al_flip_display(); // Wait for the beginning of a vertical retrace.
-               al_rest(0.5);
+               al_rest(1);
                level = 3;
+               while(level < 3)   {
+                Doodle.X=DISPLAY_WIDTH/2;
+                Doodle.Y=DISPLAY_HEIGHT-DoodleH-50;
+               }
+               initilaze_level2(&Doodle, Base_W);
+           }
        }
 
 //       printf("\nScore=%d\n", FinalScore);
@@ -141,21 +172,17 @@ int main()
             }
         }
         else if(level == 2){
-            for(i = 0; i < BaseB_Num; i++){
+            for(i = 0; i < BaseG_Num; i++){
                 al_draw_bitmap(baseB, Base_B[i].X,Base_B[i].Y, 0);
             }
         }
         else if(level == 3){
-            for(i = 0; i < BaseW_Num; i++){
-                if (Base_W[i].HP != 0)  al_draw_bitmap(baseW, Base_W[i].X,Base_W[i].Y, 0);
+            for(i = 0; i < BaseG_Num; i++){
+                al_draw_bitmap(baseW, Base_W[i].X,Base_W[i].Y, 0);
             }
         }
 
         al_draw_textf( Font, al_map_rgb(0, 0, 0), 10, 10, ALLEGRO_ALIGN_LEFT, "Score = %d", FinalScore);
-        if(picture_dir == Left)
-        al_draw_scaled_bitmap(doodle, 0, 0,al_get_bitmap_width(doodle), al_get_bitmap_height(doodle),
-                              Doodle.X, Doodle.Y,DoodleW, DoodleH,1);
-        else if(picture_dir == Right)
         al_draw_scaled_bitmap(doodle, 0, 0,al_get_bitmap_width(doodle), al_get_bitmap_height(doodle),
                               Doodle.X, Doodle.Y,DoodleW, DoodleH,0);
 
@@ -177,4 +204,5 @@ int main()
     al_destroy_bitmap( baseG);
 
     return 0;
+
 }

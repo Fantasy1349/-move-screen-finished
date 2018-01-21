@@ -33,13 +33,13 @@
 #define Right  2
 #define Left   3
 
-#define BaseG_Num 28
-#define BaseB_Num 20
-#define BaseW_Num 40
+#define BaseG_Num 25
+#define BaseB_Num 25
 
-#define Level_2_Score 5000
-#define Level_3_Score 10000
+#define Level_2_Score 1000
+#define Level_3_Score 2000
 #define jumphight 270
 
+#define test 123
 
 #endif // DEFINE_H_INCLUDED
