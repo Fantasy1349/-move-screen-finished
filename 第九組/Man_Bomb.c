@@ -22,13 +22,14 @@ int main()
 
     int i,level = 1;
     int Score[1]={0}, FinalScore = 0;
-    int picture_dir = Right,level2_stoptime = 0,level3_stoptime = 0;
+    int picture_dir = Right;
     bool run=1;
     float FPS = 120;
     ROLE Doodle;
     BASE Base_G[BaseG_Num];
     BASE Base_B[BaseB_Num];
     BASE Base_W[BaseW_Num];
+    STOPTIME Stop_Time;
 
     /*-----------set up Allegro and the graphics mode-----------*/
     initialization();
@@ -50,6 +51,7 @@ int main()
     /*----------------Work space----------------*/
     srand( time( NULL ) );
      //seed the random function
+    ini_stoptime(&Stop_Time);
 
     initilaze_coordinate(&Doodle, Base_W,BaseW_Num);
     initilaze_coordinate(&Doodle, Base_B,BaseB_Num);
@@ -78,17 +80,24 @@ int main()
                         STOP(events,&Doodle);
                     case ALLEGRO_EVENT_TIMER:
                         if (level == 1)      {
+                        if(Stop_Time.level1 < 10) {
+                            initilaze_level(&Doodle, Base_G,BaseG_Num);
+                            Stop_Time.level1++;
+                        }
+                        else if(Stop_Time.level1 >= 10){
                             Plat_jump(&Doodle,Base_G,BaseG_Num,level);
                             Doodle_jump(&Doodle,Base_G,&Score,BaseG_Num);
+                        }
+
                         }
 //--------------------------------------------------level 2-----------------------------------------------------
                         else if (level == 2) {
 
-                        if(level2_stoptime < 150) {
+                        if(Stop_Time.level2 < 150) {
                             initilaze_level(&Doodle, Base_B,BaseB_Num);
-                            level2_stoptime++;
+                            Stop_Time.level2++;
                         }
-                        else if(level2_stoptime >=150)
+                        else if(Stop_Time.level2 >=150)
                         {   Plat_move(Base_B);
                             Plat_jump(&Doodle,Base_B,BaseB_Num,level);
                             Doodle_jump(&Doodle,Base_B,&Score,BaseB_Num);
@@ -99,11 +108,11 @@ int main()
 //--------------------------------------------------level 3-----------------------------------------------------
                         else{
 
-                            if(level3_stoptime < 150 ) {
+                            if(Stop_Time.level3 < 150 ) {
                                 initilaze_level(&Doodle,Base_W,BaseW_Num);
-                                level3_stoptime++;
+                                Stop_Time.level3++;
                         }
-                        else if(level3_stoptime >= 150){
+                        else if(Stop_Time.level3 >= 150){
                             Plat_jump(&Doodle,Base_W,BaseW_Num,level);
                             Doodle_jump(&Doodle,Base_W,&Score,BaseW_Num);
                             //Countdown about 1.5 seconds then playing level 3
