@@ -178,24 +178,31 @@ void page_move(ROLE *Doodle,BASE Base_G[BaseG_Num], int *Score,int Plat_Num,BASE
         }
     }
     Score[0] += 3;
-    if(Doodle->state_S == 0)Prop[0].Y +=3;
-    if(Doodle->state_S == 1)Prop[0].Y +=15;
-    if(Doodle->state_S == 2)Prop[0].Y +=15;
-    if(Doodle->state_S == 0)Prop[1].Y +=3;
-    if(Doodle->state_S == 1)Prop[1].Y +=15;
-    if(Doodle->state_S == 2)Prop[1].Y +=15;
-    if(Doodle->state_S == 0)Prop[2].Y +=3;
-    if(Doodle->state_S == 1)Prop[2].Y +=15;
-    if(Doodle->state_S == 2)Prop[2].Y +=15;
-    if(Doodle->state_S == 0)Prop[3].Y +=3;
-    if(Doodle->state_S == 1)Prop[3].Y +=15;
-    if(Doodle->state_S == 2)Prop[3].Y +=15;
-    if(Doodle->state_S == 0)Prop[4].Y +=3;
-    if(Doodle->state_S == 1)Prop[4].Y +=15;
-    if(Doodle->state_S == 2)Prop[4].Y +=15;
-    if(Doodle->state_S == 0)Prop[5].Y +=3;
-    if(Doodle->state_S == 1)Prop[5].Y +=15;
-    if(Doodle->state_S == 2)Prop[5].Y +=15;
+
+    if(Doodle->state_S == 0){
+        Prop[0].Y +=3;
+        Prop[1].Y +=3;
+        Prop[2].Y +=3;
+        Prop[3].Y +=3;
+        Prop[4].Y +=3;
+        Prop[5].Y +=3;
+    }
+    else{
+        Prop[0].Y +=15;
+        Prop[0].Y +=15;
+        Prop[1].Y +=15;
+        Prop[1].Y +=15;
+        Prop[2].Y +=15;
+        Prop[2].Y +=15;
+        Prop[3].Y +=15;
+        Prop[3].Y +=15;
+        Prop[4].Y +=15;
+        Prop[4].Y +=15;
+        Prop[5].Y +=15;
+        Prop[5].Y +=15;
+
+    }
+
 
 
 }
