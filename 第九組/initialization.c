@@ -19,7 +19,7 @@ void initialization(GAMEDATA *gamedata, ICON *icon){
     icon -> baseG                           = NULL;
     icon -> baseB                           = NULL;
     icon -> baseW                           = NULL; //declare bitmap
-    icon -> background                      = NULL;
+    icon -> background1                     = NULL;
 
     gamedata -> display					    = NULL;
     gamedata -> timer					    = NULL;
@@ -75,7 +75,9 @@ void initialization(GAMEDATA *gamedata, ICON *icon){
     icon -> baseG                          = al_load_bitmap( "PlatG.png");
     icon -> baseB                          = al_load_bitmap( "PlatB.png");
     icon -> baseW                          = al_load_bitmap( "PlatW.png");
-    icon -> background                     = al_load_sample("Background.wav");
+    icon -> background1                    = al_load_sample("Background.wav");
+    icon -> background2                    = al_load_sample("Background.wav");
+    icon -> background3                    = al_load_sample("Background.wav");
 
     gamedata -> Font                       = al_load_ttf_font("QUEEOC__.ttf", 30, 0);
     gamedata -> Font0                      = al_load_ttf_font("OCRAEXT.ttf", 28, 0);

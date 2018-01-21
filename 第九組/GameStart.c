@@ -26,7 +26,6 @@ void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE
 	initilaze_coordinate(BaseB_Num,  Base_B, Doodle);
     initilaze_coordinate(BaseG_Num,  Base_G, Doodle);
 
-    al_play_sample(icon->background, 1.0, 0.0, 2.0,  ALLEGRO_PLAYMODE_LOOP, NULL);
     ini_stoptime(gamedata);
 	while(gamedata->run){
         if (!al_is_event_queue_empty(gamedata->event_queue)) {
@@ -46,7 +45,7 @@ void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE
                         STOP(gamedata, Doodle);
                     case ALLEGRO_EVENT_TIMER:
                         if (gamedata->level == 1){
-
+                            al_play_sample(icon->background1, 1.0, 0.0, 1.0,  ALLEGRO_PLAYMODE_LOOP, NULL);
                             al_draw_bitmap(icon->BackGround, 0, 0, 0);
 
                             if(gamedata->level1_stoptime < 10) {
@@ -60,7 +59,8 @@ void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE
                         }
 
                         else if (gamedata->level == 2) {
-
+                            al_destroy_sample(icon->background1);
+                            al_play_sample(icon->background2, 1.0, 0.0, 1.5,  ALLEGRO_PLAYMODE_LOOP, NULL);
                             al_draw_bitmap(icon->BackGround2, 0, 0, 0);
 
                             if(gamedata->level2_stoptime < 150) {
@@ -76,6 +76,8 @@ void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE
                         }
 
                         else{
+                            al_destroy_sample(icon->background2);
+                            al_play_sample(icon->background3, 1.0, 0.0, 2,  ALLEGRO_PLAYMODE_LOOP, NULL);
 
                             al_draw_bitmap(icon->BackGround3, 0, 0, 0);
                             if(gamedata->level3_stoptime < 150 ) {
@@ -110,6 +112,7 @@ void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE
        }
        if(gamedata->FinalScore>=Level_3_Score &&
           gamedata->FinalScore<=Level_3_Score + 30 && gamedata->level == 2) {
+
                al_draw_bitmap(icon->Level3, 0, 0, 0);//show Game Over bitmap
                al_rest(0.01);
                al_flip_display(); // Wait for the beginning of a vertical retrace.

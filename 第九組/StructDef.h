@@ -74,7 +74,9 @@ typedef struct Icon{
     ALLEGRO_BITMAP *baseB ;
     ALLEGRO_BITMAP *baseW ;
     ALLEGRO_BITMAP *Menu ;
-    ALLEGRO_SAMPLE *background;
+    ALLEGRO_SAMPLE *background1;
+    ALLEGRO_SAMPLE *background2;
+    ALLEGRO_SAMPLE *background3;
 } ICON;
 
 #endif // STRUCTDED_H_INCLUDED

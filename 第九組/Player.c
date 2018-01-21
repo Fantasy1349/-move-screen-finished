@@ -107,7 +107,7 @@ void Leaderboards(GAMEDATA *gamedata, ICON *icon){
                                 gamedata->run = 1;
                                 gamedata->quit= 0;
                                 gamedata->game= 1;
-                                al_destroy_sample(icon->background);
+                                al_destroy_sample(icon->background1);
                                 al_destroy_display( gamedata->display);
                             }
                         }

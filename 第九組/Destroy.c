@@ -16,7 +16,9 @@ void Destroy(GAMEDATA *gamedata, ICON *icon){
     al_destroy_bitmap(icon->Level2);
     al_destroy_bitmap(icon->Level3);
 
-    al_destroy_sample(icon->background);
+    al_destroy_sample(icon->background1);
+    al_destroy_sample(icon->background2);
+    al_destroy_sample(icon->background3);
 
     al_destroy_timer(gamedata->timer);
     al_destroy_font( gamedata->Font );
