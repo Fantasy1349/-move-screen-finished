@@ -11,9 +11,9 @@ int main()
 
     srand( time( NULL ) );
     initialization(&gamedata, &icon);
-
+    al_start_timer(gamedata.timer);
 
     PLAY_GAME(&gamedata, &icon, &Doodle, &Base_G, &Base_B, &Base_W);
 
-    Destroy(&gamedata, &icon);
+//    Destroy(&gamedata, &icon);
 }

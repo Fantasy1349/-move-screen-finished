@@ -78,7 +78,7 @@ void initialization(GAMEDATA *gamedata, ICON *icon){
     icon -> background                     = al_load_sample("Background.wav");
 
     gamedata -> Font                       = al_load_ttf_font("QUEEOC__.ttf", 30, 0);
-    gamedata -> Font0                      = al_load_ttf_font("OCRAEXT.ttf", 28, 0);
+    gamedata -> Font0                      = al_load_ttf_font("OCRAEXT.ttf", 2, 0);
     gamedata -> Font1                      = al_load_ttf_font("OCRAEXT.ttf", 40, 0);
     gamedata -> Font2                      = al_load_ttf_font("OCRAEXT.ttf", 80, 0);
     gamedata -> Font3                      = al_load_ttf_font("ARCHRISTY.ttf", 40, 0);
@@ -88,6 +88,8 @@ void initialization(GAMEDATA *gamedata, ICON *icon){
     al_register_event_source(gamedata->event_queue, al_get_display_event_source(gamedata->display));
     al_register_event_source(gamedata->event_queue, al_get_timer_event_source(gamedata->timer));
 
-    al_start_timer(gamedata->timer);
 
 }
+
+
+

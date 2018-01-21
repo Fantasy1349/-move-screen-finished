@@ -40,5 +40,5 @@ void Doodle_Moving(ROLE *Doodle){
                 break;
     }
     if (Doodle->X < 1) Doodle->X = 519;
-    if (Doodle->X + 80 > DISPLAY_WIDTH) Doodle->X = 1;
+    if (Doodle->X + 70 > DISPLAY_WIDTH) Doodle->X = 1;
 }

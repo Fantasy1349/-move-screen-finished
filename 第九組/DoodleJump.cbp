@@ -86,12 +86,12 @@
 		<Unit filename="Operation_Function.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Player.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="README.h" />
 		<Unit filename="StructDef.h" />
 		<Unit filename="initialization.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="player.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

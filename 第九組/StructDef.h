@@ -55,6 +55,7 @@ typedef struct GameData{
     int Score, FinalScore;
 	int select;
 	int picture_dir;
+	int move_hight;
 
 } GAMEDATA;
 

@@ -20,6 +20,9 @@ void Destroy(GAMEDATA *gamedata, ICON *icon){
 
     al_destroy_timer(gamedata->timer);
     al_destroy_font( gamedata->Font );
+    al_destroy_font( gamedata->Font0 );
     al_destroy_font( gamedata->Font1 );
     al_destroy_font( gamedata->Font2 );
+    al_destroy_font( gamedata->Font3 );
+    al_destroy_font( gamedata->Font4 );
 }

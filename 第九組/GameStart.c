@@ -4,8 +4,8 @@
 
 void PLAY_GAME(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE *Base_B, BASE *Base_W){
      while(gamedata->game){
-            initialization(gamedata,icon);
-//            al_start_timer(gamedata->timer);
+            initialization(gamedata, icon);
+            al_start_timer(gamedata->timer);
 
 
             menu(gamedata, icon);
@@ -14,6 +14,8 @@ void PLAY_GAME(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE 
 
             Enter_Name(gamedata, icon);
             Leaderboards(gamedata, icon);
+            STOP(gamedata, Doodle);
+            Destroy(gamedata, icon);
 
         }
 
@@ -26,7 +28,7 @@ void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE
 	initilaze_coordinate(BaseB_Num,  Base_B, Doodle);
     initilaze_coordinate(BaseG_Num,  Base_G, Doodle);
 
-    al_play_sample(icon->background, 1.0, 0.0, 2.0,  ALLEGRO_PLAYMODE_LOOP, NULL);
+    al_play_sample(icon->background, 1.0, 0.0, 2.0, ALLEGRO_PLAYMODE_LOOP, NULL);
     ini_stoptime(gamedata);
 	while(gamedata->run){
         if (!al_is_event_queue_empty(gamedata->event_queue)) {
@@ -106,7 +108,6 @@ void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE
                al_flip_display(); // Wait for the beginning of a vertical retrace.
                al_rest(0.5);
                gamedata->level = 2;
-//               initilaze_level(&Doodle, Base_B,BaseB_Num);
        }
        if(gamedata->FinalScore>=Level_3_Score &&
           gamedata->FinalScore<=Level_3_Score + 30 && gamedata->level == 2) {
@@ -115,10 +116,8 @@ void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE
                al_flip_display(); // Wait for the beginning of a vertical retrace.
                al_rest(0.5);
                gamedata->level = 3;
-//               initilaze_level,(&Doodle, Base_W,BaseW_Num);
        }
 
-//       printf("\nScore=%d\n", FinalScore);
         //display bitmap
         if(gamedata->level == 1){
             for(i = 0; i < BaseG_Num; i++){
@@ -148,7 +147,6 @@ void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE
         al_rest(0.01);
 
         al_flip_display(); // Wait for the beginning of a vertical retrace.
-//        printf("level=%d\n",level);
 
     }
 
