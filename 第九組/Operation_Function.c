@@ -9,8 +9,14 @@ void Doodle_jump(GAMEDATA *gamedata, int Plat_Num, BASE *Base, ROLE *Doodle){
 /*Output : void*/
     if(Doodle->direction == 0){
         if(Doodle->Y <=DISPLAY_HEIGHT/3)  {
-        page_move(gamedata, Plat_Num, Base, Doodle);
-//        Doodle->Y = Doodle->Y;
+        gamedata->move_hight += 3;
+            page_move(gamedata, Plat_Num, Base, Doodle);
+            printf("move hight=%d\n",gamedata->move_hight);
+        if(gamedata->move_hight > jumphight) {//if move over jump hight -> fall down
+            printf("DOWN!\n");
+            Doodle->direction=1;
+            gamedata->move_hight = 0;
+        }
         }
         else Doodle->Y -= 3;
     }
@@ -37,11 +43,15 @@ void Plat_jump(int Plat_Num, BASE Base[], ROLE *Doodle, GAMEDATA *gamedata){
             if(Doodle->Y+DoodleH > Base[i].Y && Doodle->Y+DoodleH < Base[i].Y+BaseH){
                 if(Doodle->X+DoodleW > Base[i].X+BaseSHIFT && Doodle->X < Base[i].X+BaseW-BaseSHIFT){
                     //level 1, level 2
-                    if(gamedata->level != 3 && Base[i].HP != 0) Doodle->base = Base[i].Y;
+                    if(gamedata->level != 3 && Base[i].HP != 0) {
+                        Doodle->base = Base[i].Y;
+                        gamedata->move_hight=0;//initilaze move hight distance
+                    }
                     //level 3
                     else if(gamedata->level == 3 && Base[i].HP != 0) {
                     Doodle->base = Base[i].Y;
                     Doodle->direction = 0;
+                    gamedata->move_hight=0;//initilaze move hight distance
                     Base[i].HP = 0;
                     }
                 }
