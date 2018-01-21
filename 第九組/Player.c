@@ -80,7 +80,7 @@ void Leaderboards(GAMEDATA *gamedata, ICON *icon){
 
     Rank_Result(gamedata);
 
-    while(gamedata->quit){
+    while(gamedata->quit_LB){
         al_wait_for_event(gamedata->event_queue, &gamedata->events);
         printf("select %d\n", gamedata->select);
                  switch (gamedata->events.type) {
@@ -105,10 +105,9 @@ void Leaderboards(GAMEDATA *gamedata, ICON *icon){
                             case ALLEGRO_EVENT_KEY_DOWN:
                             if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
                                 gamedata->run = 1;
-                                gamedata->quit= 0;
+                                gamedata->quit_LB= 0;
                                 gamedata->game= 1;
                                 al_destroy_sample(icon->background1);
-                                al_destroy_display( gamedata->display);
                             }
                         }
                         break;
@@ -123,9 +122,9 @@ void Leaderboards(GAMEDATA *gamedata, ICON *icon){
                         switch(gamedata->events.type){
                             case ALLEGRO_EVENT_KEY_DOWN:
                                 if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
-                                    gamedata->run = 0;
-                                    gamedata->quit= 0;
-                                    gamedata->game= 0;
+                                    gamedata->run    = 0;
+                                    gamedata->quit_LB= 0;
+                                    gamedata->game   = 0;
                                 }
                         }
                         break;

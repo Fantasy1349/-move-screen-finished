@@ -5,7 +5,6 @@
 
 /* initialization.c*/
 void initialization(GAMEDATA *gamedata, ICON *icon);
-void initialization2(GAMEDATA *gamedata, ICON *icon);
 //void Game_Start(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE Base_G[], BASE Base_B[], BASE Base_W[]);
 
 void Doodle_jump(GAMEDATA *gamedata, int Plat_Num, BASE *Base, ROLE *Doodle);

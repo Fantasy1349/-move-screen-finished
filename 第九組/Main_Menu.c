@@ -3,10 +3,10 @@
 #include "StructDef.h"
 
 void menu(GAMEDATA *gamedata, ICON *icon){
-    gamedata->quit = 1;
+    gamedata->quit_m = 1;
     gamedata->select = 1;
 
-    while(gamedata->quit){
+    while(gamedata->quit_m){
         al_wait_for_event(gamedata->event_queue, &gamedata->events);
         printf("select %d\n", gamedata->select);
 
@@ -34,7 +34,7 @@ void menu(GAMEDATA *gamedata, ICON *icon){
                     case ALLEGRO_EVENT_KEY_DOWN:
                         if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
                             gamedata->run = 1;
-                            gamedata->quit= 0;
+                            gamedata->quit_m= 0;
                         }
                         break;
                 }
@@ -82,9 +82,12 @@ void menu(GAMEDATA *gamedata, ICON *icon){
                 switch(gamedata->events.type){
                     case ALLEGRO_EVENT_KEY_DOWN:
                         if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
-                            gamedata->run = 0;
-                            gamedata->quit= 0;
-                            gamedata->game= 0;
+                            gamedata->run    = 0;
+                            gamedata->quit   = 0;
+                            gamedata->quit_m = 0;
+                            gamedata->quit_LB= 0;
+                            gamedata->quit_R = 0;
+                            gamedata->game   = 0;
                         }
                         break;
                 }
@@ -96,7 +99,7 @@ void menu(GAMEDATA *gamedata, ICON *icon){
 void Rule(GAMEDATA *gamedata, ICON*icon){
     gamedata->select = 1;
 
-    while(gamedata->quit){
+    while(gamedata->quit_R){
         al_wait_for_event(gamedata->event_queue, &gamedata->events);
         switch (gamedata->events.type) {
                 case ALLEGRO_EVENT_KEY_DOWN:
@@ -120,7 +123,7 @@ void Rule(GAMEDATA *gamedata, ICON*icon){
                     case ALLEGRO_EVENT_KEY_DOWN:
                         if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
                             gamedata->run = 1;
-                            gamedata->quit= 0;
+                            gamedata->quit_R= 0;
                         }
                 }
                 break;
@@ -134,9 +137,12 @@ void Rule(GAMEDATA *gamedata, ICON*icon){
                 switch(gamedata->events.type){
                     case ALLEGRO_EVENT_KEY_DOWN:
                         if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
-                            gamedata->run = 0;
-                            gamedata->quit= 0;
-                            gamedata->game= 0;
+                            gamedata->run    = 0;
+                            gamedata->quit   = 0;
+                            gamedata->quit_m = 0;
+                            gamedata->quit_LB= 0;
+                            gamedata->quit_R = 0;
+                            gamedata->game   = 0;
 
                         }
                 }

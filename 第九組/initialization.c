@@ -43,6 +43,9 @@ void initialization(GAMEDATA *gamedata, ICON *icon){
 
     gamedata -> FPS                        = 120;
     gamedata -> run                        = 1;
+    gamedata -> quit_m                     = 1;
+    gamedata -> quit_LB                    = 1;
+    gamedata -> quit_R                     = 1;
     gamedata -> quit                       = 1;
     gamedata -> game                       = 1;
     gamedata -> level                      = 1;

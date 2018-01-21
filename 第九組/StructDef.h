@@ -47,6 +47,9 @@ typedef struct GameData{
 
 	float FPS;
     bool run;
+    bool quit_m;
+    bool quit_LB;
+    bool quit_R;
     bool quit;
     bool game;
 
