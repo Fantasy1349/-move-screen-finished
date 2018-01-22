@@ -56,7 +56,7 @@ void initialization(GAMEDATA *gamedata, ICON *icon){
     gamedata -> level3_stoptime            = 0;
 
     for(int i = 0; i < 20; i++){
-        gamedata->rank1[i].NAME[30] = "NONE";
+        gamedata->rank1[i].NAME[30] = NULL;
         gamedata->rank1[i].score = 0;
     }
 

@@ -1,16 +1,12 @@
-ALISA   8288
-ABC   5006
+ALISA   5362
+ALISA   2276
    0
-A   5014
-ALISA   7616
-ÝÝ   84
-“““““““““““ÝA{   856
-“   8840
-ALISA   0
-AAA   3099
-A   0
-A   1134
+AA   1041
    0
-ALISA   7268
+ÝÝ   1663
+SA   6130
+A   5006
    0
-AAAAA   0
+   0
+   0
+ABCDEFG   84

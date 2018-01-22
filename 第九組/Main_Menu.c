@@ -124,6 +124,7 @@ void Rule(GAMEDATA *gamedata, ICON*icon){
                         if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
                             gamedata->run = 1;
                             gamedata->quit_R= 0;
+                            gamedata->quit_m = 0;
                         }
                 }
                 break;
@@ -143,7 +144,6 @@ void Rule(GAMEDATA *gamedata, ICON*icon){
                             gamedata->quit_LB= 0;
                             gamedata->quit_R = 0;
                             gamedata->game   = 0;
-
                         }
                 }
                 break;

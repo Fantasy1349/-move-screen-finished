@@ -26,6 +26,7 @@ void Enter_Name(GAMEDATA *gamedata, ICON *icon){
             case ALLEGRO_EVENT_KEY_CHAR:
                 if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
                     gamedata->quit = 0;
+                    gamedata->quit_LB =1;
                     break;
                 }
                 else if (gamedata->events.keyboard.keycode==ALLEGRO_KEY_SPACE){
@@ -73,6 +74,13 @@ void Rank_Result(GAMEDATA *gamedata){
             }
         }
     }
+//    fptr = fopen("result.txt","w");
+//    for(i=0;i<20;i++){
+//        fprintf(fptr,"%s  ",gamedata->rank1[i].NAME);
+//        fprintf(fptr," %d\n",gamedata->rank1[i].score);
+//    }
+//        fclose(fptr);
+
 }
 //
 void Leaderboards(GAMEDATA *gamedata, ICON *icon){
@@ -108,6 +116,7 @@ void Leaderboards(GAMEDATA *gamedata, ICON *icon){
                                 gamedata->quit_LB= 0;
                                 gamedata->game= 1;
                                 al_destroy_sample(icon->background1);
+                                al_destroy_display(gamedata->display);
                             }
                         }
                         break;
@@ -123,7 +132,10 @@ void Leaderboards(GAMEDATA *gamedata, ICON *icon){
                             case ALLEGRO_EVENT_KEY_DOWN:
                                 if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
                                     gamedata->run    = 0;
+//                                    gamedata->quit   = 0;
+                                    gamedata->quit_m = 0;
                                     gamedata->quit_LB= 0;
+                                    gamedata->quit_R = 0;
                                     gamedata->game   = 0;
                                 }
                         }

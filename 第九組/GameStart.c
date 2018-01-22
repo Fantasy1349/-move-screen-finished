@@ -14,7 +14,7 @@ void PLAY_GAME(GAMEDATA *gamedata, ICON *icon, ROLE *Doodle, BASE *Base_G, BASE 
 
             Enter_Name(gamedata, icon);
             Leaderboards(gamedata, icon);
-            Destroy(gamedata, icon);
+
         }
 
 }

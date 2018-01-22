@@ -14,6 +14,7 @@ int main()
 
 
     PLAY_GAME(&gamedata, &icon, &Doodle, &Base_G, &Base_B, &Base_W);
+    Destroy(&gamedata, &icon);
 
 
 }
