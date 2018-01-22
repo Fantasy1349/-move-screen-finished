@@ -12,6 +12,8 @@ void Enter_Name(GAMEDATA *gamedata, ICON *icon){
         al_clear_to_color(al_map_rgb(255, 255, 255));
         al_draw_bitmap(icon->GameOver, 0, 0, 0);
 
+        al_draw_textf(gamedata->Font3, al_map_rgb(0, 0, 0), DISPLAY_WIDTH/2, 300, ALLEGRO_ALIGN_CENTER, "YOUR SCORE");
+        al_draw_textf(gamedata->Font3, al_map_rgb(0, 0, 0), DISPLAY_WIDTH/2, 380, ALLEGRO_ALIGN_CENTER, "%d", gamedata->FinalScore);
         al_draw_textf(gamedata->Font, al_map_rgb(0, 0, 0), DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2-40, ALLEGRO_ALIGN_CENTER, "Enter Your Name");
         al_draw_textf(gamedata->Font, al_map_rgb(0, 0, 0), DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER,  edittext);
 
@@ -26,6 +28,7 @@ void Enter_Name(GAMEDATA *gamedata, ICON *icon){
             case ALLEGRO_EVENT_KEY_CHAR:
                 if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
                     gamedata->quit = 0;
+                    gamedata->quit_LB= 1;
                     break;
                 }
                 else if (gamedata->events.keyboard.keycode==ALLEGRO_KEY_SPACE){
@@ -60,11 +63,11 @@ void Rank_Result(GAMEDATA *gamedata){
     fptr = fopen("result.txt","r");
     int i,j;
     RANK temp;
-    for(i=0;i<19;i++)
+    for(i=0;i<100;i++)
         fscanf(fptr,"%s   %d",gamedata->rank1[i].NAME, &gamedata->rank1[i].score);
 
-    for( i = 0; i < 20; i++) {
-        for( j = i; j < 20; j++) {
+    for( i = 0; i < 100; i++) {
+        for( j = i; j < 100; j++) {
             if( gamedata->rank1[j].score > gamedata->rank1[i].score ) {
                 temp = gamedata->rank1[j];
                 gamedata->rank1[j] = gamedata->rank1[i];
@@ -79,9 +82,8 @@ void Leaderboards(GAMEDATA *gamedata, ICON *icon){
 
     Rank_Result(gamedata);
 
-    while(gamedata->quit){
+    while(gamedata->quit_LB){
         al_wait_for_event(gamedata->event_queue, &gamedata->events);
-        printf("select %d\n", gamedata->select);
                  switch (gamedata->events.type) {
                     case ALLEGRO_EVENT_KEY_DOWN:
                         if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_DOWN){
@@ -104,9 +106,11 @@ void Leaderboards(GAMEDATA *gamedata, ICON *icon){
                             case ALLEGRO_EVENT_KEY_DOWN:
                             if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
                                 gamedata->run = 1;
-                                gamedata->quit= 0;
+                                gamedata->quit_LB= 0;
+                                gamedata->quit_m= 0;
                                 gamedata->game= 1;
-                                al_destroy_sample(icon->background);
+                                al_destroy_display( gamedata->display);
+
                             }
                         }
                         break;
@@ -121,9 +125,12 @@ void Leaderboards(GAMEDATA *gamedata, ICON *icon){
                         switch(gamedata->events.type){
                             case ALLEGRO_EVENT_KEY_DOWN:
                                 if(gamedata->events.keyboard.keycode == ALLEGRO_KEY_ENTER){
-                                    gamedata->run = 0;
-                                    gamedata->quit= 0;
-                                    gamedata->game= 0;
+                                    gamedata->run    = 0;
+                                    gamedata->quit   = 0;
+                                    gamedata->quit_m = 0;
+                                    gamedata->quit_LB= 0;
+                                    gamedata->quit_R = 0;
+                                    gamedata->game   = 0;
                                 }
                         }
                         break;

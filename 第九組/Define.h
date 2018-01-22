@@ -27,8 +27,8 @@
 #define DoodleW 57
 
 #define BaseH 15
-#define BaseW 60
-#define BaseSHIFT 20
+#define BaseW 63
+#define BaseSHIFT 15
 
 #define Right  2
 #define Left   3
@@ -39,7 +39,11 @@
 
 #define Level_2_Score 5000
 #define Level_3_Score 10000
-#define jumphight 300
+#define jumphight 350
+
+#define Prop_Num 6
+#define Prop_H 40
+#define Propheight 300
 
 
 #endif // DEFINE_H_INCLUDED

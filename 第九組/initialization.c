@@ -18,8 +18,16 @@ void initialization(GAMEDATA *gamedata, ICON *icon){
     icon -> doodle                          = NULL;
     icon -> baseG                           = NULL;
     icon -> baseB                           = NULL;
-    icon -> baseW                           = NULL; //declare bitmap
-    icon -> background                      = NULL;
+    icon -> baseW                           = NULL;
+    icon -> springB                         = NULL;
+    icon -> springG                         = NULL;
+    icon -> springW                         = NULL;
+    icon -> rocketB                         = NULL;
+    icon -> rocketG                         = NULL;
+    icon -> rocketW                         = NULL; //declare bitmap
+    icon -> background1                     = NULL;
+    icon -> background2                     = NULL;
+    icon -> background3                     = NULL;
 
     gamedata -> display					    = NULL;
     gamedata -> timer					    = NULL;
@@ -43,17 +51,21 @@ void initialization(GAMEDATA *gamedata, ICON *icon){
 
     gamedata -> FPS                        = 120;
     gamedata -> run                        = 1;
+    gamedata -> quit_m                     = 1;
+    gamedata -> quit_LB                    = 1;
+    gamedata -> quit_R                     = 1;
     gamedata -> quit                       = 1;
     gamedata -> game                       = 1;
     gamedata -> level                      = 1;
     gamedata -> select                     = 1;
     gamedata -> Score                      = 0;
     gamedata -> FinalScore                 = 0;
+    gamedata -> level1_stoptime            = 0;
     gamedata -> level2_stoptime            = 0;
     gamedata -> level3_stoptime            = 0;
 
-    for(int i = 0; i < 20; i++){
-        gamedata->rank1[i].NAME[30] = "NONE";
+    for(int i = 0; i < 100; i++){
+        gamedata->rank1[i].NAME[30] = NULL;
         gamedata->rank1[i].score = 0;
     }
 
@@ -75,10 +87,18 @@ void initialization(GAMEDATA *gamedata, ICON *icon){
     icon -> baseG                          = al_load_bitmap( "PlatG.png");
     icon -> baseB                          = al_load_bitmap( "PlatB.png");
     icon -> baseW                          = al_load_bitmap( "PlatW.png");
-    icon -> background                     = al_load_sample("Background.wav");
+    icon -> springB                        = al_load_bitmap( "springB.png");
+    icon -> springG                        = al_load_bitmap( "springG.png");
+    icon -> springW                        = al_load_bitmap( "springW.png");
+    icon -> rocketB                        = al_load_bitmap( "rocketB.png");
+    icon -> rocketG                        = al_load_bitmap( "rocketG.png");
+    icon -> rocketW                        = al_load_bitmap( "rocketW.png");
+    icon -> background1                    = al_load_sample("Background.wav");
+    icon -> background2                    = al_load_sample("Background.wav");
+    icon -> background3                    = al_load_sample("Background.wav");
 
     gamedata -> Font                       = al_load_ttf_font("QUEEOC__.ttf", 30, 0);
-    gamedata -> Font0                      = al_load_ttf_font("OCRAEXT.ttf", 2, 0);
+    gamedata -> Font0                      = al_load_ttf_font("OCRAEXT.ttf", 25, 0);
     gamedata -> Font1                      = al_load_ttf_font("OCRAEXT.ttf", 40, 0);
     gamedata -> Font2                      = al_load_ttf_font("OCRAEXT.ttf", 80, 0);
     gamedata -> Font3                      = al_load_ttf_font("ARCHRISTY.ttf", 40, 0);
@@ -90,4 +110,6 @@ void initialization(GAMEDATA *gamedata, ICON *icon){
 
 
 }
+
+
 

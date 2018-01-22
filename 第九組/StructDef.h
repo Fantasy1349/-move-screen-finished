@@ -12,6 +12,7 @@ typedef struct Role{
     int state_D;
     int state_R;
     int state_L;
+    int state_S;
 } ROLE;
 
 typedef struct Bases{
@@ -38,15 +39,18 @@ typedef struct GameData{
     ALLEGRO_FONT *Font3; // declare Font file
     ALLEGRO_FONT *Font4;
 
-    RANK rank1[20];
+    RANK rank1[100];
 
 //	ROLE Doodle;
 //    BASE Base_G[BaseG_Num];
 //    BASE Base_B[BaseB_Num];
 //    BASE Base_W[BaseW_Num];
 
-	float FPS;
+    float FPS;
     bool run;
+    bool quit_m;
+    bool quit_LB;
+    bool quit_R;
     bool quit;
     bool game;
 
@@ -74,8 +78,16 @@ typedef struct Icon{
     ALLEGRO_BITMAP *baseG ;
     ALLEGRO_BITMAP *baseB ;
     ALLEGRO_BITMAP *baseW ;
+    ALLEGRO_BITMAP *springB;
+    ALLEGRO_BITMAP *springW;
+    ALLEGRO_BITMAP *springG;
+    ALLEGRO_BITMAP *rocketB;
+    ALLEGRO_BITMAP *rocketW;
+    ALLEGRO_BITMAP *rocketG;
     ALLEGRO_BITMAP *Menu ;
-    ALLEGRO_SAMPLE *background;
+    ALLEGRO_SAMPLE *background1;
+    ALLEGRO_SAMPLE *background2;
+    ALLEGRO_SAMPLE *background3;
 } ICON;
 
 #endif // STRUCTDED_H_INCLUDED
